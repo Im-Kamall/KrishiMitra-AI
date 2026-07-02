@@ -13,6 +13,7 @@ from services.expert_case_service import create_expert_case, get_all_cases, upda
 from services.image_diagnosis import analyze_crop_image
 from services.live_weather_service import get_live_weather
 from services.chatbot_service import ask_farmer_ai
+from services.history_service import add_history, get_stats
 
 
 app = FastAPI(
@@ -90,6 +91,16 @@ def health():
     }
 
 
+@app.get("/analytics")
+def analytics():
+    stats = get_stats()
+
+    return {
+        "status": "success",
+        "analytics": stats
+    }
+
+
 @app.post("/register-farmer")
 def register_farmer_api(data: FarmerInput):
     farmer = register_farmer(
@@ -131,6 +142,11 @@ def crop_recommendation(data: CropInput):
         data.rainfall
     )
 
+    add_history("crop_recommendations", {
+        "input": data.dict(),
+        "result": result
+    })
+
     return {
         "status": "success",
         "input": data,
@@ -156,6 +172,11 @@ def weather_advisory(data: WeatherInput):
 @app.post("/live-weather")
 def live_weather(data: LiveWeatherInput):
     result = get_live_weather(data.city)
+
+    add_history("weather_requests", {
+        "city": data.city,
+        "result": result
+    })
 
     return {
         "status": "success" if result["success"] else "error",
@@ -195,6 +216,11 @@ async def crop_image_diagnosis(file: UploadFile = File(...)):
 
     result = analyze_crop_image(file_location)
 
+    add_history("image_diagnoses", {
+        "filename": file.filename,
+        "result": result
+    })
+
     return {
         "status": "success",
         "message": "Crop image uploaded and analyzed successfully",
@@ -205,6 +231,12 @@ async def crop_image_diagnosis(file: UploadFile = File(...)):
 @app.post("/ask-ai")
 def ask_ai(data: ChatbotInput):
     result = ask_farmer_ai(data.question, data.language)
+
+    add_history("chat_requests", {
+        "question": data.question,
+        "language": data.language,
+        "answer": result["answer"]
+    })
 
     return {
         "status": "success" if result["success"] else "error",

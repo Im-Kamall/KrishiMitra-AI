@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import api from "../services/api";
+import PageHeader from "../components/PageHeader";
 
 function DiseaseDetection() {
   const [file, setFile] = useState(null);
@@ -30,13 +30,11 @@ function DiseaseDetection() {
       setLoading(true);
 
       const res = await api.post("/crop-image-diagnosis", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+        headers: { "Content-Type": "multipart/form-data" },
       });
 
       setResult(res.data.diagnosis.diagnosis);
-    } catch (error) {
+    } catch {
       alert("Image diagnosis failed");
     } finally {
       setLoading(false);
@@ -45,11 +43,10 @@ function DiseaseDetection() {
 
   return (
     <div className="page">
-      <Link to="/" className="back-link">
-        ← Back to Dashboard
-      </Link>
-
-      <h1>📷 AI Crop Image Diagnosis</h1>
+      <PageHeader
+        title="📷 AI Crop Image Diagnosis"
+        subtitle="Upload a crop leaf image and let Gemini Vision detect disease, symptoms and treatment."
+      />
 
       <div className="upload-box">
         <form onSubmit={diagnoseImage} className="form">
@@ -60,7 +57,7 @@ function DiseaseDetection() {
           )}
 
           <button type="submit" disabled={loading}>
-            {loading ? "🤖 Analyzing with Gemini AI..." : "Diagnose Crop Image"}
+            {loading ? "Analyzing with Gemini..." : "Diagnose Crop Image"}
           </button>
         </form>
       </div>

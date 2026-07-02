@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import api from "../services/api";
+import PageHeader from "../components/PageHeader";
 
 function Weather() {
   const [city, setCity] = useState("");
@@ -10,73 +10,83 @@ function Weather() {
   const getWeather = async (e) => {
     e.preventDefault();
 
+    if (!city.trim()) {
+      alert("Please enter a city");
+      return;
+    }
+
     try {
       setLoading(true);
-
-      const res = await api.post("/live-weather", {
-        city: city,
-      });
-
+      const res = await api.post("/live-weather", { city });
       setWeather(res.data.live_weather);
-    } catch (error) {
-      console.error(error);
+    } catch {
       alert("Unable to fetch weather");
     } finally {
       setLoading(false);
     }
   };
 
+  const advisory =
+    weather?.temperature > 35
+      ? "High temperature detected. Irrigate crops early morning or evening."
+      : weather?.humidity > 75
+      ? "High humidity detected. Monitor crops for fungal diseases."
+      : "Weather is normal. Continue regular crop care.";
+
   return (
     <div className="page">
-      <Link to="/" className="back-link">
-        ← Back to Dashboard
-      </Link>
+      <PageHeader
+        title="🌦 Live Weather Advisory"
+        subtitle="Fetch real-time weather and receive smart farming guidance."
+      />
 
-      <h1>🌦 Live Weather</h1>
-
-      <form onSubmit={getWeather} className="form">
+      <form onSubmit={getWeather} className="pro-form">
         <input
           type="text"
-          placeholder="Enter city"
+          placeholder="Enter city or village name"
           value={city}
           onChange={(e) => setCity(e.target.value)}
         />
 
-        <button type="submit">
-          {loading ? "Loading..." : "Get Weather"}
+        <button type="submit" disabled={loading}>
+          {loading ? "Fetching..." : "Get Live Weather"}
         </button>
       </form>
 
       {weather && weather.success && (
-        <div className="weather-card">
-          <h2>
-            {weather.city}, {weather.country}
-          </h2>
+        <div className="weather-report">
+          <h2>{weather.city}, {weather.country}</h2>
 
-          <p>🌡 Temperature: {weather.temperature} °C</p>
-          <p>💧 Humidity: {weather.humidity}%</p>
-          <p>🌬 Wind: {weather.wind_speed} m/s</p>
-          <p>☁ Weather: {weather.weather}</p>
-          <p>📝 Description: {weather.description}</p>
+          <div className="weather-grid">
+            <div>
+              <span>🌡</span>
+              <h3>{weather.temperature}°C</h3>
+              <p>Temperature</p>
+            </div>
 
-          <hr />
+            <div>
+              <span>💧</span>
+              <h3>{weather.humidity}%</h3>
+              <p>Humidity</p>
+            </div>
 
-          <h3>🌱 Farming Advisory</h3>
+            <div>
+              <span>🌬</span>
+              <h3>{weather.wind_speed} m/s</h3>
+              <p>Wind Speed</p>
+            </div>
 
-          <p>
-            {weather.temperature > 35
-              ? "High temperature. Irrigate crops early morning or evening."
-              : weather.humidity > 75
-              ? "High humidity. Monitor crops for fungal disease."
-              : "Weather is normal. Continue regular crop care."}
-          </p>
-        </div>
-      )}
+            <div>
+              <span>☁</span>
+              <h3>{weather.weather}</h3>
+              <p>{weather.description}</p>
+            </div>
+          </div>
 
-      {weather && !weather.success && (
-        <div className="result-card">
-          <h2>City Not Found</h2>
-          <p>{weather.message}</p>
+          <div className="advisory-box">
+            <h3>🌱 Farming Advisory</h3>
+            <p>{advisory}</p>
+          </div>
         </div>
       )}
     </div>
