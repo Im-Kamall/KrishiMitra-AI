@@ -369,7 +369,7 @@ https://github.com/Im-Kamall
 
 ### LinkedIn
 
-(Add your LinkedIn Profile)
+www.linkedin.com/in/kamalsolanki-dev
 
 ---
 
