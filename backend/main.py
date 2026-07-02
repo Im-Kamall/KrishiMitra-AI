@@ -9,12 +9,10 @@ from services.crop_recommendation import recommend_crop
 from services.weather_advisory import get_weather_advisory
 from services.disease_detection import diagnose_crop_disease
 from services.farmer_service import register_farmer, get_all_farmers
-from services.expert_case_service import (
-    create_expert_case,
-    get_all_cases,
-    update_case_status
-)
+from services.expert_case_service import create_expert_case, get_all_cases, update_case_status
 from services.image_diagnosis import analyze_crop_image
+from services.live_weather_service import get_live_weather
+from services.chatbot_service import ask_farmer_ai
 
 
 app = FastAPI(
@@ -25,10 +23,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173"
-    ],
+    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -52,6 +47,10 @@ class WeatherInput(BaseModel):
     wind_speed: float
 
 
+class LiveWeatherInput(BaseModel):
+    city: str
+
+
 class DiseaseInput(BaseModel):
     farmer_name: str
     crop_name: str
@@ -71,6 +70,11 @@ class FarmerInput(BaseModel):
 class CaseStatusInput(BaseModel):
     case_id: str
     status: str
+
+
+class ChatbotInput(BaseModel):
+    question: str
+    language: str = "English"
 
 
 @app.get("/")
@@ -149,6 +153,16 @@ def weather_advisory(data: WeatherInput):
     }
 
 
+@app.post("/live-weather")
+def live_weather(data: LiveWeatherInput):
+    result = get_live_weather(data.city)
+
+    return {
+        "status": "success" if result["success"] else "error",
+        "live_weather": result
+    }
+
+
 @app.post("/crop-disease-diagnosis")
 def crop_disease_diagnosis(data: DiseaseInput):
     result = diagnose_crop_disease(data.symptoms)
@@ -188,6 +202,16 @@ async def crop_image_diagnosis(file: UploadFile = File(...)):
     }
 
 
+@app.post("/ask-ai")
+def ask_ai(data: ChatbotInput):
+    result = ask_farmer_ai(data.question, data.language)
+
+    return {
+        "status": "success" if result["success"] else "error",
+        "response": result
+    }
+
+
 @app.get("/expert-cases")
 def expert_cases():
     cases = get_all_cases()
@@ -201,10 +225,7 @@ def expert_cases():
 
 @app.put("/expert-cases/update-status")
 def expert_case_status_update(data: CaseStatusInput):
-    updated_case = update_case_status(
-        data.case_id,
-        data.status
-    )
+    updated_case = update_case_status(data.case_id, data.status)
 
     if updated_case is None:
         return {

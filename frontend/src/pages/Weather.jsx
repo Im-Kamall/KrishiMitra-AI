@@ -1,58 +1,82 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import api from "../services/api";
 
 function Weather() {
-  const [form, setForm] = useState({
-    temperature: "",
-    humidity: "",
-    rainfall_chance: "",
-    wind_speed: "",
-  });
+  const [city, setCity] = useState("");
+  const [weather, setWeather] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  const [result, setResult] = useState(null);
-
-  const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const getAdvisory = async (e) => {
+  const getWeather = async (e) => {
     e.preventDefault();
 
-    const payload = {
-      temperature: Number(form.temperature),
-      humidity: Number(form.humidity),
-      rainfall_chance: Number(form.rainfall_chance),
-      wind_speed: Number(form.wind_speed),
-    };
-
     try {
-      const res = await api.post("/weather-advisory", payload);
-      setResult(res.data.weather_advisory);
+      setLoading(true);
+
+      const res = await api.post("/live-weather", {
+        city: city,
+      });
+
+      setWeather(res.data.live_weather);
     } catch (error) {
-      alert("Weather advisory failed");
+      console.error(error);
+      alert("Unable to fetch weather");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="page">
-      <h1>🌦 Weather Advisory</h1>
+      <Link to="/" className="back-link">
+        ← Back to Dashboard
+      </Link>
 
-      <form onSubmit={getAdvisory} className="form">
-        <input name="temperature" placeholder="Temperature" value={form.temperature} onChange={handleChange} />
-        <input name="humidity" placeholder="Humidity" value={form.humidity} onChange={handleChange} />
-        <input name="rainfall_chance" placeholder="Rainfall Chance (%)" value={form.rainfall_chance} onChange={handleChange} />
-        <input name="wind_speed" placeholder="Wind Speed" value={form.wind_speed} onChange={handleChange} />
+      <h1>🌦 Live Weather</h1>
 
-        <button type="submit">Get Advisory</button>
+      <form onSubmit={getWeather} className="form">
+        <input
+          type="text"
+          placeholder="Enter city"
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
+        />
+
+        <button type="submit">
+          {loading ? "Loading..." : "Get Weather"}
+        </button>
       </form>
 
-      {result && (
+      {weather && weather.success && (
+        <div className="weather-card">
+          <h2>
+            {weather.city}, {weather.country}
+          </h2>
+
+          <p>🌡 Temperature: {weather.temperature} °C</p>
+          <p>💧 Humidity: {weather.humidity}%</p>
+          <p>🌬 Wind: {weather.wind_speed} m/s</p>
+          <p>☁ Weather: {weather.weather}</p>
+          <p>📝 Description: {weather.description}</p>
+
+          <hr />
+
+          <h3>🌱 Farming Advisory</h3>
+
+          <p>
+            {weather.temperature > 35
+              ? "High temperature. Irrigate crops early morning or evening."
+              : weather.humidity > 75
+              ? "High humidity. Monitor crops for fungal disease."
+              : "Weather is normal. Continue regular crop care."}
+          </p>
+        </div>
+      )}
+
+      {weather && !weather.success && (
         <div className="result-card">
-          <h2>{result.alert_type}</h2>
-          <p>{result.advisory}</p>
+          <h2>City Not Found</h2>
+          <p>{weather.message}</p>
         </div>
       )}
     </div>

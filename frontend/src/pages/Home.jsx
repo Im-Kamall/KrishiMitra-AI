@@ -3,6 +3,11 @@ import { Link } from "react-router-dom";
 function Home() {
   const modules = [
     {
+      title: "📊 Analytics Dashboard",
+      desc: "View farmers, expert cases, AI features, and project status.",
+      path: "/dashboard",
+    },
+    {
       title: "👨‍🌾 Farmer Registration",
       desc: "Register new farmers in the system.",
       path: "/register",
@@ -13,19 +18,24 @@ function Home() {
       path: "/crop",
     },
     {
-      title: "🌦 Weather Advisory",
-      desc: "Get irrigation and rainfall guidance.",
+      title: "🌦 Live Weather",
+      desc: "Get real-time weather and farming advice.",
       path: "/weather",
     },
     {
       title: "📷 Crop Image Detection",
-      desc: "Upload crop image for diagnosis.",
+      desc: "Upload crop image for Gemini AI diagnosis.",
       path: "/disease",
     },
     {
       title: "🦠 Symptom Diagnosis",
-      desc: "Diagnose crop issues from symptoms.",
+      desc: "Diagnose crop disease from symptoms.",
       path: "/symptoms",
+    },
+    {
+      title: "🤖 AI Farmer Chatbot",
+      desc: "Ask farming questions in English, Hindi, or Gujarati.",
+      path: "/chatbot",
     },
     {
       title: "🧑‍💼 Expert Dashboard",

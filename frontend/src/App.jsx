@@ -8,6 +8,8 @@ import Weather from "./pages/Weather";
 import DiseaseDetection from "./pages/DiseaseDetection";
 import ExpertDashboard from "./pages/ExpertDashboard";
 import SymptomDiagnosis from "./pages/SymptomDiagnosis";
+import Chatbot from "./pages/Chatbot";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
         <Route path="/disease" element={<DiseaseDetection />} />
         <Route path="/symptoms" element={<SymptomDiagnosis />} />
         <Route path="/expert" element={<ExpertDashboard />} />
+        <Route path="/chatbot" element={<Chatbot />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </BrowserRouter>
   );
