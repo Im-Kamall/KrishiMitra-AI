@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -14,6 +15,7 @@ from services.expert_case_service import (
     update_case_status
 )
 from services.image_diagnosis import analyze_crop_image
+
 
 app = FastAPI(
     title="KrishiMitra AI",
@@ -73,16 +75,14 @@ class CaseStatusInput(BaseModel):
 
 @app.get("/")
 def home():
-    return {
-        "message": "🌾 Welcome to KrishiMitra AI Backend"
-    }
+    return {"message": "🌾 Welcome to KrishiMitra AI Backend"}
 
 
 @app.get("/health")
 def health():
     return {
         "status": "Backend Running Successfully",
-        "database": "MongoDB Atlas Connected"
+        "database": "MongoDB Atlas configured"
     }
 
 
@@ -172,6 +172,8 @@ def crop_disease_diagnosis(data: DiseaseInput):
 
 @app.post("/crop-image-diagnosis")
 async def crop_image_diagnosis(file: UploadFile = File(...)):
+    os.makedirs("uploads", exist_ok=True)
+
     file_location = f"uploads/{file.filename}"
 
     with open(file_location, "wb") as image_file:

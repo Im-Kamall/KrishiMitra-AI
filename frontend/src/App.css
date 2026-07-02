@@ -226,3 +226,42 @@ body {
     padding: 20px;
   }
 }
+.result-card pre {
+  white-space: pre-wrap;
+  line-height: 1.7;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.upload-box {
+  background: white;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.12);
+}
+
+.preview-img {
+  max-width: 320px;
+  border-radius: 14px;
+  border: 2px solid #ddd;
+  margin-top: 15px;
+}
+
+.ai-report {
+  margin-top: 30px;
+  background: #ffffff;
+  border-left: 6px solid #2e7d32;
+  border-radius: 14px;
+  padding: 25px;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.12);
+}
+
+.ai-report h2 {
+  color: #1b5e20;
+  margin-bottom: 15px;
+}
+
+.ai-report pre {
+  white-space: pre-wrap;
+  line-height: 1.8;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #333;
+}

@@ -1,15 +1,18 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import api from "../services/api";
 
 function DiseaseDetection() {
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
-  const [result, setResult] = useState(null);
+  const [result, setResult] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    setFile(selectedFile);
-    setPreview(URL.createObjectURL(selectedFile));
+    const selected = e.target.files[0];
+    setFile(selected);
+    setPreview(URL.createObjectURL(selected));
+    setResult("");
   };
 
   const diagnoseImage = async (e) => {
@@ -24,46 +27,48 @@ function DiseaseDetection() {
     formData.append("file", file);
 
     try {
+      setLoading(true);
+
       const res = await api.post("/crop-image-diagnosis", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
 
-      setResult(res.data.diagnosis);
+      setResult(res.data.diagnosis.diagnosis);
     } catch (error) {
       alert("Image diagnosis failed");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="page">
-      <h1>📷 Crop Disease Detection</h1>
+      <Link to="/" className="back-link">
+        ← Back to Dashboard
+      </Link>
 
-      <form onSubmit={diagnoseImage} className="form">
-        <input type="file" accept="image/*" onChange={handleFileChange} />
+      <h1>📷 AI Crop Image Diagnosis</h1>
 
-        {preview && (
-          <img
-            src={preview}
-            alt="Crop Preview"
-            style={{
-              width: "250px",
-              borderRadius: "12px",
-              marginTop: "15px",
-            }}
-          />
-        )}
+      <div className="upload-box">
+        <form onSubmit={diagnoseImage} className="form">
+          <input type="file" accept="image/*" onChange={handleFileChange} />
 
-        <button type="submit">Diagnose Crop Image</button>
-      </form>
+          {preview && (
+            <img src={preview} alt="Crop preview" className="preview-img" />
+          )}
+
+          <button type="submit" disabled={loading}>
+            {loading ? "🤖 Analyzing with Gemini AI..." : "Diagnose Crop Image"}
+          </button>
+        </form>
+      </div>
 
       {result && (
-        <div className="result-card">
-          <h2>Disease: {result.possible_disease}</h2>
-          <p><strong>Confidence:</strong> {result.confidence}</p>
-          <p><strong>Solution:</strong> {result.recommended_solution}</p>
-          <p>{result.note}</p>
+        <div className="ai-report">
+          <h2>🤖 Gemini AI Diagnosis Report</h2>
+          <pre>{result}</pre>
         </div>
       )}
     </div>
