@@ -2,245 +2,219 @@
 
 # 🌾 KrishiMitra AI
 
-### AI-Powered Smart Agriculture Intelligence Platform
+### AI-Powered Smart Agriculture Platform for Farmers
 
-#### Empowering Farmers with Artificial Intelligence, Weather Intelligence, Computer Vision & Cloud Technologies
+Helping farmers with **Crop Recommendation**, **Disease Detection**, **Live Weather Advisory**, **AI Chatbot**, and **Expert Support** using Artificial Intelligence.
 
 ![Python](https://img.shields.io/badge/Python-3.12-blue?style=for-the-badge&logo=python)
 ![FastAPI](https://img.shields.io/badge/FastAPI-Backend-009688?style=for-the-badge&logo=fastapi)
 ![React](https://img.shields.io/badge/React-Frontend-61DAFB?style=for-the-badge&logo=react)
 ![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?style=for-the-badge&logo=mongodb)
-![Gemini](https://img.shields.io/badge/Google-Gemini_AI-4285F4?style=for-the-badge&logo=google)
-![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
-
----
-
-### 🌍 Supporting Sustainable Agriculture Through AI
-
-*"Helping Small & Marginal Farmers Make Smarter Decisions."*
+![Gemini AI](https://img.shields.io/badge/Google-Gemini_AI-4285F4?style=for-the-badge&logo=google)
+![OpenWeather](https://img.shields.io/badge/OpenWeather-API-FFB703?style=for-the-badge)
 
 </div>
 
 ---
 
-# 📖 Overview
+# 🌟 Overview
 
-KrishiMitra AI is an intelligent agriculture platform built to assist farmers with **AI-powered crop recommendations, disease diagnosis, weather-based advisories, and expert consultation**.
+KrishiMitra AI is an intelligent agriculture platform that empowers farmers with AI-driven tools to improve crop productivity and make informed farming decisions.
 
-The platform combines **Artificial Intelligence, Machine Learning, Computer Vision, Weather Intelligence, Cloud Database, and Modern Web Technologies** to provide real-time agricultural assistance.
+The application combines:
 
-Designed especially for **small and marginal farmers**, KrishiMitra AI aims to improve productivity, reduce crop losses, and promote data-driven farming practices.
-
----
-
-# 🚨 Problem Statement
-
-Farmers often suffer crop losses because of:
-
-- Poor crop selection
-- Unpredictable monsoon patterns
-- Lack of localized weather intelligence
-- Delayed crop disease detection
-- Limited access to agricultural experts
-- Traditional decision-making without scientific data
-
-These challenges result in:
-
-- Reduced crop yield
-- Increased production costs
-- Water wastage
-- Financial losses
+- 🤖 Google Gemini AI
+- 📷 AI Crop Disease Detection
+- 🌱 Crop Recommendation System
+- 🌦 Live Weather Advisory
+- 💬 Multilingual AI Chatbot
+- 👨‍🌾 Farmer Registration
+- 👨‍⚕ Expert Dashboard
+- 📊 Analytics Dashboard
 
 ---
 
-# 💡 Solution
-
-KrishiMitra AI provides an integrated AI ecosystem that helps farmers by offering:
-
-✅ Smart Crop Recommendation
-
-✅ AI Disease Detection
-
-✅ Weather-based Farming Advisory
-
-✅ Expert Consultation
-
-✅ Cloud-based Farmer Management
-
-✅ Future-ready Voice & SMS Support
-
----
-
-# ✨ Key Features
+# ✨ Features
 
 ## 👨‍🌾 Farmer Registration
 
-- Register farmer profile
-- Village information
+- Register farmer details
+- Store crop information
+- Village & soil details
 - Preferred language
-- Soil type
-- Current crop
 
 ---
 
 ## 🌱 Smart Crop Recommendation
 
-AI recommends crops using:
+AI recommends crops using
 
 - Nitrogen
 - Phosphorus
 - Potassium
 - Temperature
 - Humidity
-- Rainfall
 - Soil pH
+- Rainfall
 
 ---
 
-## 🌦 Weather Advisory
+## 📷 AI Crop Disease Detection
 
-Provides recommendations for:
+Upload crop images and receive
 
-- Irrigation
-- Fertilizer application
-- Dry spell alerts
-- Weather warnings
-
----
-
-## 🦠 Symptom-based Disease Diagnosis
-
-Farmers can describe symptoms like:
-
-> Leaves turning yellow
-
-AI identifies:
-
-- Possible disease
-- Nutrient deficiency
-- Treatment
-- Prevention
-
----
-
-## 📷 AI Crop Image Diagnosis
-
-Upload crop images.
-
-Google Gemini Vision analyzes:
-
-- Disease
-- Confidence
+- Disease Name
 - Symptoms
 - Treatment
 - Prevention
+- AI Diagnosis
+
+Powered by **Google Gemini Vision**.
 
 ---
 
-## 🧑‍💼 Expert Dashboard
+## 🌦 Live Weather Advisory
 
-Agriculture experts can:
+Real-time weather including
 
-- Review submitted cases
-- Monitor disease reports
-- Update treatment status
-- Manage farmer requests
+- Temperature
+- Humidity
+- Wind Speed
+- Pressure
+- Weather Description
+
+with farming recommendations.
 
 ---
 
-## ☁ Cloud Database
+## 🤖 AI Farmer Chatbot
 
-MongoDB Atlas stores:
+Ask farming questions in
 
-- Farmer profiles
-- Expert cases
-- Disease reports
+- English
+- Hindi
+- Gujarati
+
+Powered by **Google Gemini AI**.
+
+---
+
+## 👨‍⚕ Expert Dashboard
+
+Experts can
+
+- View submitted cases
+- Review AI diagnosis
+- Update case status
+
+---
+
+## 📊 Analytics Dashboard
+
+Shows
+
+- Registered Farmers
+- Weather Requests
+- AI Chats
+- Crop Recommendations
+- Image Diagnoses
+- Expert Cases
+
+---
+
+# 📸 Application Preview
+
+## 🏠 Home
+
+![Home](assets/screenshots/home.png)
+
+---
+
+## 📊 Dashboard
+
+![Dashboard](assets/screenshots/dashboard.png)
+
+---
+
+## 🌦 Weather
+
+![Weather](assets/screenshots/weather.png)
+
+---
+
+## 🤖 AI Chatbot
+
+![Chatbot](assets/screenshots/chatbot.png)
+
+---
+
+## 📷 Disease Detection
+
+![Disease](assets/screenshots/disease.png)
+
+---
+
+## 🌱 Crop Recommendation
+
+![Crop](assets/screenshots/crop.png)
+
+---
+
+## 👨‍🌾 Farmer Registration
+
+![Register](assets/screenshots/register.png)
+
+---
+
+## 👨‍⚕ Expert Dashboard
+
+![Expert](assets/screenshots/expert.png)
 
 ---
 
 # 🏗 System Architecture
 
 ```text
-                    Farmer
-
-                      │
-
-                      ▼
-
-          React Frontend (Vite)
-
-                      │
-
-              REST API (Axios)
-
-                      │
-
-                      ▼
-
-           FastAPI Backend Server
-
-                      │
-
-      ┌───────────────┼────────────────┐
-      │               │                │
-      ▼               ▼                ▼
-
-Crop AI        Gemini Vision      Weather AI
-
-      │               │                │
-
-      └───────────────┼────────────────┘
-
-                      ▼
-
-              MongoDB Atlas Cloud
+                React Frontend
+                       │
+                       ▼
+                FastAPI Backend
+                       │
+      ┌────────────────┼────────────────┐
+      │                │                │
+      ▼                ▼                ▼
+ Gemini AI      OpenWeather API     MongoDB Atlas
 ```
 
 ---
 
-# 🛠 Tech Stack
+# 🛠 Technology Stack
 
 ## Frontend
 
 - React
 - Vite
-- Axios
 - React Router
-- CSS3
-
----
+- React Icons
+- Recharts
 
 ## Backend
 
 - Python
 - FastAPI
-- Uvicorn
-- Pydantic
 
----
+## AI
+
+- Google Gemini AI
+- Gemini Vision
 
 ## Database
 
 - MongoDB Atlas
-- PyMongo
 
----
+## APIs
 
-## Artificial Intelligence
-
-- Google Gemini AI
-- Gemini Vision
-- Machine Learning
-
----
-
-## Development Tools
-
-- VS Code
-- Git
-- GitHub
-- Swagger UI
-- Postman
+- OpenWeather API
 
 ---
 
@@ -253,65 +227,35 @@ backend/
 │
 ├── services/
 ├── uploads/
+├── data/
 ├── database.py
 ├── main.py
-├── requirements.txt
-└── .env
+└── requirements.txt
 
 frontend/
 │
+├── public/
 ├── src/
+│   ├── components/
 │   ├── pages/
 │   ├── services/
 │   ├── App.jsx
 │   └── App.css
-│
-├── package.json
-└── vite.config.js
+
+assets/
+└── screenshots/
 
 README.md
 ```
 
 ---
 
-# 📸 Screenshots
-
-## Dashboard
-
-<img src="assets/dashboard.png" width="900"/>
-
----
-
-## Farmer Registration
-
-<img src="assets/register.png" width="900"/>
-
----
-
-## Crop Recommendation
-
-<img src="assets/crop.png" width="900"/>
-
----
-
-## Disease Detection
-
-<img src="assets/disease.png" width="900"/>
-
----
-
-## Expert Dashboard
-
-<img src="assets/expert.png" width="900"/>
-
----
-
-# 🚀 Getting Started
+# 🚀 Installation
 
 ## Clone Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/KrishiMitra-AI.git
+git clone https://github.com/Im-Kamall/KrishiMitra-AI.git
 
 cd KrishiMitra-AI
 ```
@@ -329,16 +273,16 @@ venv\Scripts\activate
 
 pip install -r requirements.txt
 
-uvicorn main:app --reload
+python -m uvicorn main:app --reload
 ```
 
-Backend:
+Backend
 
 ```
 http://127.0.0.1:8000
 ```
 
-Swagger:
+Swagger
 
 ```
 http://127.0.0.1:8000/docs
@@ -356,7 +300,7 @@ npm install
 npm run dev
 ```
 
-Frontend:
+Frontend
 
 ```
 http://localhost:5173
@@ -364,76 +308,91 @@ http://localhost:5173
 
 ---
 
-# 📡 API Endpoints
+# 🔑 Environment Variables
+
+Create
+
+```
+backend/.env
+```
+
+```env
+MONGODB_PASSWORD=YOUR_PASSWORD
+
+GEMINI_API_KEY=YOUR_GEMINI_API_KEY
+
+OPENWEATHER_API_KEY=YOUR_OPENWEATHER_API_KEY
+```
+
+---
+
+# 🔌 API Endpoints
 
 | Method | Endpoint | Description |
-|----------|-----------------------------|------------------------|
+|---------|----------|-------------|
 | GET | / | Home |
 | GET | /health | Health Check |
+| GET | /analytics | Analytics |
 | POST | /register-farmer | Register Farmer |
-| GET | /farmers | Get Farmers |
+| GET | /farmers | List Farmers |
 | POST | /recommend-crop | Crop Recommendation |
-| POST | /weather-advisory | Weather Advisory |
-| POST | /crop-disease-diagnosis | Symptom Diagnosis |
-| POST | /crop-image-diagnosis | Image Diagnosis |
+| POST | /live-weather | Live Weather |
+| POST | /crop-image-diagnosis | Crop Disease Detection |
+| POST | /ask-ai | AI Chatbot |
 | GET | /expert-cases | Expert Cases |
-| PUT | /expert-cases/update-status | Update Case Status |
 
 ---
 
-# 🔮 Future Roadmap
+# 🚀 Future Enhancements
 
-- Voice Assistant
-- SMS Notifications
-- Real-time Weather API
-- Satellite Data
-- Soil Sensor Integration
-- Government Scheme Recommendation
-- Mobile Application
-- Offline SMS Support
-- Multi-language AI Assistant
+- 🎤 Voice Assistant
+- 📱 Mobile Application
+- 🌍 Multi-language UI
+- 📡 IoT Sensor Integration
+- 🚁 Drone Image Analysis
+- 🔔 Push Notifications
+- 📈 Advanced Analytics
 
 ---
 
-# 🌍 Impact
+# 👨‍💻 Developer
 
-KrishiMitra AI aims to:
+**Kamal Solanki**
 
-- Improve Crop Yield
-- Reduce Crop Losses
-- Promote Precision Farming
-- Support Sustainable Agriculture
-- Increase Farmer Income
-- Enable Data-driven Decisions
+Computer Science Engineering Student
+
+Aspiring Data Scientist • Machine Learning Engineer • AI Engineer
+
+### GitHub
+
+https://github.com/Im-Kamall
+
+### LinkedIn
+
+(Add your LinkedIn Profile)
 
 ---
 
-# 🤝 Contributing
+# ⭐ Support
 
-Contributions are welcome!
+If you like this project:
 
-Fork the repository
+⭐ Star this repository
 
-Create a new branch
+🍴 Fork it
 
-Commit your changes
-
-Submit a Pull Request
+🤝 Contribute
 
 ---
 
 # 📜 License
 
-This project is licensed under the MIT License.
+MIT License
 
 ---
 
 <div align="center">
 
-### 🌾 Built with ❤️ for Farmers
-
-*"Technology for Sustainable Agriculture."*
-
-⭐ If you like this project, don't forget to star the repository!
+Made with ❤️ using Python, FastAPI, React & Google Gemini AI
 
 </div>
