@@ -17,9 +17,20 @@ function Weather() {
 
     try {
       setLoading(true);
-      const res = await api.post("/live-weather", { city });
-      setWeather(res.data.live_weather);
-    } catch {
+
+      const res = await api.post("/live-weather", {
+        city: city,
+      });
+
+      const data = res.data.live_weather;
+
+      if (data && data.success) {
+        setWeather(data);
+      } else {
+        alert(data?.message || "Unable to fetch weather");
+      }
+    } catch (error) {
+      console.error("Weather error:", error);
       alert("Unable to fetch weather");
     } finally {
       setLoading(false);
@@ -53,7 +64,7 @@ function Weather() {
         </button>
       </form>
 
-      {weather && weather.success && (
+      {weather && (
         <div className="weather-report">
           <h2>{weather.city}, {weather.country}</h2>
 

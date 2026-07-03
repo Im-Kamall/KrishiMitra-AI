@@ -16,34 +16,27 @@ function Chatbot() {
       return;
     }
 
-    const userMessage = {
-      type: "user",
-      text: question,
-    };
-
-    setMessages((prev) => [...prev, userMessage]);
+    setMessages((prev) => [...prev, { type: "user", text: question }]);
     setLoading(true);
 
     try {
       const res = await api.post("/ask-ai", {
-        question,
-        language,
+        question: question,
+        language: language,
       });
 
-      const aiMessage = {
-        type: "ai",
-        text: res.data.response.answer,
-      };
+      const answer =
+        res.data?.response?.answer ||
+        res.data?.response?.message ||
+        "AI response received, but answer format is missing.";
 
-      setMessages((prev) => [...prev, aiMessage]);
+      setMessages((prev) => [...prev, { type: "ai", text: answer }]);
       setQuestion("");
     } catch (error) {
+      console.error("Chatbot error:", error);
       setMessages((prev) => [
         ...prev,
-        {
-          type: "ai",
-          text: "AI assistant failed. Please check backend.",
-        },
+        { type: "ai", text: "AI assistant failed. Please check backend." },
       ]);
     } finally {
       setLoading(false);
@@ -52,9 +45,7 @@ function Chatbot() {
 
   return (
     <div className="page">
-      <Link to="/" className="back-link">
-        ← Back to Dashboard
-      </Link>
+      <Link to="/" className="back-link">← Back to Dashboard</Link>
 
       <h1>🤖 AI Farmer Chat Assistant</h1>
 
