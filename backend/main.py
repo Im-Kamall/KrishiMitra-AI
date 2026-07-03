@@ -29,10 +29,10 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
+        "https://krishi-mitra-ai-red.vercel.app",
         "http://localhost:5173",
         "http://127.0.0.1:5173",
         "http://localhost:3000",
-        "https://krishi-mitra-ai-red.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -157,14 +157,14 @@ def crop_recommendation(data: CropInput):
     add_history(
         "crop_recommendations",
         {
-            "input": data.dict(),
+            "input": data.model_dump(),
             "result": result,
         },
     )
 
     return {
         "status": "success",
-        "input": data,
+        "input": data.model_dump(),
         "recommendation": result,
     }
 
