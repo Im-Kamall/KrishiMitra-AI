@@ -1,7 +1,9 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://krishimitra-ai-wd75.onrender.com",
+  baseURL:
+    import.meta.env.VITE_API_BASE_URL ||
+    "https://krishimitra-ai-wd75.onrender.com",
 });
 
 export default api;
